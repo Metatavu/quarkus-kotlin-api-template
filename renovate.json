@@ -7,10 +7,6 @@
   "requiredStatusChecks": null,
   "packageRules": [
     {
-      "matchPackagePatterns": ["eslint"],
-      "labels": ["linting"]
-    },
-    {
       "matchDepTypes": ["optionalDependencies"],
       "addLabels": ["optional"]
     },
