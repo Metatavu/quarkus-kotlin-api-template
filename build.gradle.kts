@@ -1,7 +1,7 @@
 import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
 
 plugins {
-    kotlin("jvm") version "1.4.31"
+    kotlin("jvm") version "1.5.31"
     kotlin("plugin.allopen") version "1.4.31"
     id("io.quarkus")
     id("org.openapi.generator") version "5.2.1"
