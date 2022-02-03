@@ -47,7 +47,7 @@ dependencies {
     testImplementation("org.testcontainers:mysql:$testContainersVersion")
     testImplementation("io.quarkus:quarkus-junit5")
     testImplementation("com.github.dasniko:testcontainers-keycloak:$testContainersKeycloakVersion")
-    kapt("org.hibernate:hibernate-jpamodelgen:5.5.7.Final")
+    kapt("org.hibernate:hibernate-jpamodelgen:5.6.2.Final")
 }
 
 group = "fi.metatavu.example"
