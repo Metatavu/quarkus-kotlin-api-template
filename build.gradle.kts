@@ -17,9 +17,6 @@ val quarkusPlatformGroupId: String by project
 val quarkusPlatformArtifactId: String by project
 val quarkusPlatformVersion: String by project
 val jaxrsFunctionalTestBuilderVersion: String by project
-val testContainersVersion: String by project
-val testContainersKeycloakVersion: String by project
-val moshiVersion: String by project
 
 dependencies {
     implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
@@ -39,14 +36,12 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     testImplementation("com.squareup.okhttp3:okhttp")
-    testImplementation("com.squareup.moshi:moshi-kotlin:$moshiVersion")
-    testImplementation("com.squareup.moshi:moshi-adapters:$moshiVersion")
     testImplementation("org.testcontainers:localstack:1.16.3")
     testImplementation("fi.metatavu.jaxrs.testbuilder:jaxrs-functional-test-builder:$jaxrsFunctionalTestBuilderVersion")
-    testImplementation("org.testcontainers:testcontainers:$testContainersVersion")
-    testImplementation("org.testcontainers:mysql:$testContainersVersion")
+    testImplementation("org.testcontainers:testcontainers")
+    testImplementation("org.testcontainers:mysql")
     testImplementation("io.quarkus:quarkus-junit5")
-    testImplementation("com.github.dasniko:testcontainers-keycloak:$testContainersKeycloakVersion")
+
     kapt("org.hibernate:hibernate-jpamodelgen:5.6.5.Final")
 }
 
