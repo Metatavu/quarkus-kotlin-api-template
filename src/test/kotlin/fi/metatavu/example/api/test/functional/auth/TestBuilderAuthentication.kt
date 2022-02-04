@@ -1,16 +1,18 @@
 package fi.metatavu.example.api.test.functional.auth
 
-import fi.metatavu.example.api.client.infrastructure.ApiClient
+import fi.metatavu.example.client.infrastructure.ApiClient
 import fi.metatavu.example.api.test.functional.TestBuilder
 import fi.metatavu.example.api.test.functional.impl.ExamplesTestBuilderResource
+import fi.metatavu.example.api.test.functional.settings.ApiTestSettings
 import fi.metatavu.jaxrs.test.functional.builder.auth.AccessTokenProvider
-import fi.metatavu.jaxrs.test.functional.builder.auth.AuthorizedTestBuilderAuthentication
+import fi.metatavu.jaxrs.test.functional.builder.auth.AccessTokenTestBuilderAuthentication
 
 
 /**
  * Test builder authentication
  *
  * @author Jari Nykänen
+ * @author Antti Leppä
  *
  * @param testBuilder test builder instance
  * @param accessTokenProvider access token provider
@@ -18,21 +20,15 @@ import fi.metatavu.jaxrs.test.functional.builder.auth.AuthorizedTestBuilderAuthe
 class TestBuilderAuthentication(
     private val testBuilder: TestBuilder,
     accessTokenProvider: AccessTokenProvider
-): AuthorizedTestBuilderAuthentication<ApiClient>(testBuilder, accessTokenProvider) {
+): AccessTokenTestBuilderAuthentication<ApiClient>(testBuilder, accessTokenProvider) {
 
     private var accessTokenProvider: AccessTokenProvider? = accessTokenProvider
 
     var examples: ExamplesTestBuilderResource = ExamplesTestBuilderResource(testBuilder, this.accessTokenProvider, createClient())
 
-    /**
-     * Creates a API client
-     *
-     * @param accessToken access token
-     * @return API client
-     */
-    override fun createClient(accessToken: String): ApiClient {
-        val result = ApiClient(testBuilder.settings.apiBasePath)
-        ApiClient.accessToken = accessToken
+    override fun createClient(authProvider: AccessTokenProvider): ApiClient {
+        val result = ApiClient(ApiTestSettings.apiBasePath)
+        ApiClient.accessToken = authProvider.accessToken
         return result
     }
 

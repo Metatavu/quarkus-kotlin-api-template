@@ -1,9 +1,10 @@
 package fi.metatavu.example.api.test.functional.impl
 
-import fi.metatavu.example.api.client.apis.ExamplesApi
-import fi.metatavu.example.api.client.infrastructure.ApiClient
-import fi.metatavu.example.api.client.models.*
+import fi.metatavu.example.client.apis.ExamplesApi
+import fi.metatavu.example.client.infrastructure.ApiClient
+import fi.metatavu.example.client.models.*
 import fi.metatavu.example.api.test.functional.TestBuilder
+import fi.metatavu.example.api.test.functional.settings.ApiTestSettings
 import fi.metatavu.jaxrs.test.functional.builder.auth.AccessTokenProvider
 import java.util.*
 
@@ -24,16 +25,21 @@ class ExamplesTestBuilderResource(
 
     override fun getApi(): ExamplesApi {
         ApiClient.accessToken = accessTokenProvider?.accessToken
-        return ExamplesApi(testBuilder.settings.apiBasePath)
+        return ExamplesApi(ApiTestSettings.apiBasePath)
     }
 
     /**
      * Lists examples
      *
+     * @param firstResult First result. Defaults to 0 (optional)
+     * @param maxResults Max results. Defaults to 10 (optional)
      * @return list of examples
      */
-    fun listExamples(): Array<Example> {
-        return api.listExamples()
+    fun listExamples(firstResult: Int?, maxResults: Int?): Array<Example> {
+        return api.listExamples(
+            firstResult = firstResult,
+            maxResults = maxResults
+        )
     }
 
     /**
