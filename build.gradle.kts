@@ -54,7 +54,7 @@ java {
 }
 
 sourceSets["main"].java {
-    srcDir("build/generated/api-spec/src/gen/java")
+    srcDir("build/generated/api-spec/src/main/kotlin")
 }
 sourceSets["test"].java {
     srcDir("build/generated/api-client/src/main/kotlin")
@@ -77,9 +77,9 @@ val generateApiSpec = tasks.register("generateApiSpec",GenerateTask::class){
     setProperty("generatorName", "kotlin-server")
     setProperty("inputSpec",  "$rootDir/spec/swagger.yaml")
     setProperty("outputDir", "$buildDir/generated/api-spec")
-    setProperty("apiPackage", "fi.example.spec")
-    setProperty("invokerPackage", "fi.example.invoker")
-    setProperty("modelPackage", "fi.example.model")
+    setProperty("apiPackage", "fi.metatavu.example.spec")
+    setProperty("invokerPackage", "fi.metatavu.example.invoker")
+    setProperty("modelPackage", "fi.metatavu.example.model")
     this.configOptions.put("library", "jaxrs-spec")
     this.configOptions.put("dateLibrary", "java8")
     this.configOptions.put("interfaceOnly", "true")
@@ -94,9 +94,10 @@ val generateApiClient = tasks.register("generateApiClient",GenerateTask::class){
     setProperty("library", "jvm-okhttp3")
     setProperty("inputSpec",  "$rootDir/spec/swagger.yaml")
     setProperty("outputDir", "$buildDir/generated/api-client")
-    setProperty("packageName", "fi.example.client")
+    setProperty("packageName", "fi.metatavu.example.client")
     this.configOptions.put("dateLibrary", "string")
     this.configOptions.put("collectionType", "array")
+    this.configOptions.put("serializationLibrary", "jackson")
 }
 
 tasks.named("compileKotlin") {
