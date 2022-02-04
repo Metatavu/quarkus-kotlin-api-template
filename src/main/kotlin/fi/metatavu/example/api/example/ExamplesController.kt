@@ -63,10 +63,15 @@ class ExamplesController {
     /**
      * List examples
      *
+     * @param firstResult First result. Defaults to 0 (optional)
+     * @param maxResults Max results. Defaults to 10 (optional)
      * @return list of languages
      */
-    fun list(): List<Example> {
-        return exampleDAO.listAll()
+    fun list(firstResult: Int?, maxResults: Int?): List<Example> {
+        return exampleDAO.list(
+            firstResult = firstResult,
+            maxResults = maxResults
+        )
     }
 
     /**

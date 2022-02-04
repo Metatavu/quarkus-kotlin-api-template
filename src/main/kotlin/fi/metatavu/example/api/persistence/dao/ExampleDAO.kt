@@ -11,7 +11,7 @@ import javax.persistence.criteria.Predicate
  * @author Jari Nykänen
  */
 @ApplicationScoped
-class ExampleDAO: AbstractDAO<Example>() {
+class ExampleDAO : AbstractDAO<Example>() {
 
     /**
      * Creates a new Example
@@ -35,9 +35,11 @@ class ExampleDAO: AbstractDAO<Example>() {
     /**
      * Lists all examples with given filters
      *
+     * @param firstResult First result. Defaults to 0 (optional)
+     * @param maxResults Max results. Defaults to 10 (optional)
      * @return list of examples
      */
-    fun list(): List<Example> {
+    fun list(firstResult: Int?, maxResults: Int?): List<Example> {
         val entityManager = getEntityManager()
         val criteriaBuilder = entityManager.criteriaBuilder
         val criteria = criteriaBuilder.createQuery(Example::class.java)
@@ -49,6 +51,14 @@ class ExampleDAO: AbstractDAO<Example>() {
         criteria.where(criteriaBuilder.and(*restrictions.toTypedArray()))
 
         val query = entityManager.createQuery(criteria)
+        if (firstResult != null) {
+            query.firstResult = firstResult
+        }
+
+        if (maxResults != null) {
+            query.maxResults = maxResults
+        }
+
         return query.resultList
     }
 
@@ -79,5 +89,5 @@ class ExampleDAO: AbstractDAO<Example>() {
         example.lastModifierId = modifierId
         return persist(example)
     }
-    
+
 }
