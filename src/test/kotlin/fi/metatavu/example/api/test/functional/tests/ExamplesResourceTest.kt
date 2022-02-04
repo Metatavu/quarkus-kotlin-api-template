@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test
     QuarkusTestResource(MysqlTestResource::class)
 )
 @TestProfile(LocalTestProfile::class)
-class ExamplesTestIT {
+class ExamplesResourceTest {
 
     /**
      * Tests list Examples

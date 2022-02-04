@@ -5,7 +5,6 @@ plugins {
     kotlin("plugin.allopen") version "1.6.10"
     id("io.quarkus")
     id("org.openapi.generator") version "5.4.0"
-    id("org.jetbrains.kotlin.kapt") version "1.6.10"
 }
 
 repositories {
@@ -36,13 +35,11 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     testImplementation("com.squareup.okhttp3:okhttp")
-    testImplementation("org.testcontainers:localstack:1.16.3")
     testImplementation("fi.metatavu.jaxrs.testbuilder:jaxrs-functional-test-builder:$jaxrsFunctionalTestBuilderVersion")
     testImplementation("org.testcontainers:testcontainers")
     testImplementation("org.testcontainers:mysql")
     testImplementation("io.quarkus:quarkus-junit5")
-
-    kapt("org.hibernate:hibernate-jpamodelgen:5.6.5.Final")
+    testImplementation("io.rest-assured:rest-assured")
 }
 
 group = "fi.metatavu.example"
