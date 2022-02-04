@@ -74,14 +74,16 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 }
 
 val generateApiSpec = tasks.register("generateApiSpec",GenerateTask::class){
-    setProperty("generatorName", "jaxrs-spec")
-    setProperty("inputSpec",  "$rootDir/api-spec-template/swagger.yaml")
+    setProperty("generatorName", "kotlin-server")
+    setProperty("inputSpec",  "$rootDir/spec/swagger.yaml")
     setProperty("outputDir", "$buildDir/generated/api-spec")
-    setProperty("apiPackage", "fi.metatavu.example.api.spec")
-    setProperty("invokerPackage", "fi.metatavu.example.api.invoker")
-    setProperty("modelPackage", "fi.metatavu.example.api.model")
+    setProperty("apiPackage", "fi.example.spec")
+    setProperty("invokerPackage", "fi.example.invoker")
+    setProperty("modelPackage", "fi.example.model")
+    this.configOptions.put("library", "jaxrs-spec")
     this.configOptions.put("dateLibrary", "java8")
     this.configOptions.put("interfaceOnly", "true")
+    this.configOptions.put("useCoroutines", "true")
     this.configOptions.put("returnResponse", "true")
     this.configOptions.put("useSwaggerAnnotations", "false")
     this.configOptions.put("additionalModelTypeAnnotations", "@io.quarkus.runtime.annotations.RegisterForReflection")
@@ -90,17 +92,11 @@ val generateApiSpec = tasks.register("generateApiSpec",GenerateTask::class){
 val generateApiClient = tasks.register("generateApiClient",GenerateTask::class){
     setProperty("generatorName", "kotlin")
     setProperty("library", "jvm-okhttp3")
-    setProperty("inputSpec",  "$rootDir/api-spec-template/swagger.yaml")
+    setProperty("inputSpec",  "$rootDir/spec/swagger.yaml")
     setProperty("outputDir", "$buildDir/generated/api-client")
-    setProperty("packageName", "fi.metatavu.example.api.client")
+    setProperty("packageName", "fi.example.client")
     this.configOptions.put("dateLibrary", "string")
     this.configOptions.put("collectionType", "array")
-}
-
-tasks.named("clean") {
-    this.doFirst {
-        file("$rootDir/src/gen").deleteRecursively()
-    }
 }
 
 tasks.named("compileKotlin") {
